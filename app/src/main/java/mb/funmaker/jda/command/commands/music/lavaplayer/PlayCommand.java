@@ -6,10 +6,19 @@ import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 public class PlayCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
         final TextChannel channel = ctx.getChannel();
+
+        if(ctx.getArgs().isEmpty()){
+            channel.sendMessage("Poprawne użycie to `!play <link>`").queue();
+            return;
+        }
+
         final Member self = ctx.getSelfMember();
         final GuildVoiceState selfVoiceState = self.getVoiceState();
 
@@ -30,8 +39,22 @@ public class PlayCommand implements ICommand {
             return;
         }
 
-        PlayerManager.getInstance()
-                .loadAndPlay(channel, "https://www.youtube.com/watch?v=iS0EqNnr7pM");
+        String link = String.join(" ", ctx.getArgs());
+
+        if(!isUrl(link)){
+            link = "ytsearch:" + link;
+        }
+
+        PlayerManager.getInstance().loadAndPlay(channel, link);
+    }
+
+    private boolean isUrl(String url){
+        try {
+            new URI(url);
+            return true;
+        }catch (URISyntaxException e){
+            return false;
+        }
     }
 
     @Override
