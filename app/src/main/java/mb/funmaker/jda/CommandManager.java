@@ -4,6 +4,7 @@ import mb.funmaker.jda.command.CommandContext;
 import mb.funmaker.jda.command.ICommand;
 import mb.funmaker.jda.command.commands.HelpCommand;
 import mb.funmaker.jda.command.commands.PingCommand;
+import mb.funmaker.jda.command.commands.music.JoinCommand;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import javax.annotation.Nullable;
@@ -19,6 +20,7 @@ public class CommandManager {
     public CommandManager() {
         addCommand(new PingCommand());
         addCommand(new HelpCommand(this));
+        addCommand(new JoinCommand());
     }
 
     private void addCommand(ICommand cmd){

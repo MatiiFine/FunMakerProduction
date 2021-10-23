@@ -11,7 +11,7 @@ public class Bot {
         JDABuilder
                 .createDefault(Config.get("TOKEN"))
                 .addEventListeners(new Listener())
-                .setActivity(Activity.watching("PornHub.com"))
+                .setActivity(Activity.playing("Heven Leszno Set"))
                 .build();
     }
     public static void main(String[] args) throws LoginException {
