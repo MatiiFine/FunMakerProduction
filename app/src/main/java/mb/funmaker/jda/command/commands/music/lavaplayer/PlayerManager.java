@@ -67,7 +67,7 @@ public class PlayerManager {
         });
     }
 
-    private static PlayerManager getInstance(){
+    public static PlayerManager getInstance(){
         if (INSTANCE==null){
             INSTANCE = new PlayerManager();
         }
