@@ -11,7 +11,7 @@ public class Bot {
         JDABuilder
                 .createDefault(Config.get("TOKEN"))
                 .addEventListeners(new Listener())
-                .setActivity(Activity.playing("Heven Leszno Set"))
+                .setActivity(Activity.playing("Ekwador Manieczki"))
                 .build();
     }
     public static void main(String[] args) throws LoginException {
