@@ -6,6 +6,7 @@ import mb.funmaker.jda.command.commands.HelpCommand;
 import mb.funmaker.jda.command.commands.PingCommand;
 import mb.funmaker.jda.command.commands.music.JoinCommand;
 import mb.funmaker.jda.command.commands.music.lavaplayer.PlayCommand;
+import mb.funmaker.jda.command.commands.music.lavaplayer.SkipCommand;
 import mb.funmaker.jda.command.commands.music.lavaplayer.StopCommand;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
@@ -25,6 +26,7 @@ public class CommandManager {
         addCommand(new JoinCommand());
         addCommand(new PlayCommand());
         addCommand(new StopCommand());
+        addCommand(new SkipCommand());
     }
 
     private void addCommand(ICommand cmd){
