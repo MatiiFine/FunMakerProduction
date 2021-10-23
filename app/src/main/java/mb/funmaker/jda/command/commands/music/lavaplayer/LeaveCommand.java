@@ -1,0 +1,57 @@
+package mb.funmaker.jda.command.commands.music.lavaplayer;
+
+import mb.funmaker.jda.command.CommandContext;
+import mb.funmaker.jda.command.ICommand;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.GuildVoiceState;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.managers.AudioManager;
+
+public class LeaveCommand implements ICommand {
+    @Override
+    public void handle(CommandContext ctx) {
+        final TextChannel channel = ctx.getChannel();
+        final Member self = ctx.getSelfMember();
+        final GuildVoiceState selfVoiceState = self.getVoiceState();
+
+        if(!selfVoiceState.inVoiceChannel()){
+            channel.sendMessage("Muszę być na kanale aby coś zapodać").queue();
+            return;
+        }
+
+        final Member member = ctx.getMember();
+        final GuildVoiceState memberVoiceState = member.getVoiceState();
+        if(!memberVoiceState.inVoiceChannel()){
+            channel.sendMessage("Żeby dodać coś do kolejki musisz być na kanale głosowym").queue();
+            return;
+        }
+
+        if(!memberVoiceState.getChannel().equals(selfVoiceState.getChannel())){
+            channel.sendMessage("Musisz być na tym samym kanale głosowym").queue();
+            return;
+        }
+
+        final Guild guild = ctx.getGuild();
+        final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(guild);
+
+        musicManager.scheduler.repeating = false;
+        musicManager.scheduler.queue.clear();
+        musicManager.audioPlayer.stopTrack();
+        final AudioManager audioManager = guild.getAudioManager();
+
+        audioManager.closeAudioConnection();
+
+        channel.sendMessage("To ja zawijam").queue();
+    }
+
+    @Override
+    public String getName() {
+        return "leave";
+    }
+
+    @Override
+    public String getHelp() {
+        return "Opuszczanie kanału";
+    }
+}
