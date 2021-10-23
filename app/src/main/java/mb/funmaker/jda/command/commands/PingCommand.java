@@ -15,6 +15,12 @@ public class PingCommand implements ICommand {
     }
 
     @Override
+
+    public  String getHelp(){
+        return "Shows ping";
+    }
+
+    @Override
     public String getName() {
         return "ping";
     }

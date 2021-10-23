@@ -2,6 +2,7 @@ package mb.funmaker.jda;
 
 import mb.funmaker.jda.command.CommandContext;
 import mb.funmaker.jda.command.ICommand;
+import mb.funmaker.jda.command.commands.HelpCommand;
 import mb.funmaker.jda.command.commands.PingCommand;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
@@ -17,6 +18,7 @@ public class CommandManager {
 
     public CommandManager() {
         addCommand(new PingCommand());
+        addCommand(new HelpCommand(this));
     }
 
     private void addCommand(ICommand cmd){
@@ -30,8 +32,12 @@ public class CommandManager {
 
     }
 
+    public List<ICommand> getCommands(){
+        return commands;
+    }
+
     @Nullable
-    private ICommand getCommand(String search){
+    public ICommand getCommand(String search){
         String searchLower = search.toLowerCase();
 
         for(ICommand cmd : this.commands){
