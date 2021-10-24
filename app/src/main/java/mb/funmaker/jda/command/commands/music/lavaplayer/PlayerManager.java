@@ -56,14 +56,11 @@ public class PlayerManager {
                 final List<AudioTrack> tracks = playlist.getTracks();
 
                 channel.sendMessage("Dodawanie do kolejki: `")
-                        .append(String.valueOf(tracks.size()))
-                        .append("` utwowry z playlisty `")
-                        .append(playlist.getName())
+                        .append(tracks.get(0).getInfo().title)
+                        .append("` by `")
+                        .append(tracks.get(0).getInfo().author)
                         .queue();
-
-                for(final AudioTrack track : tracks){
-                    musicManager.scheduler.queue(track);
-                }
+                musicManager.scheduler.queue(tracks.get(0));
             }
 
             @Override
