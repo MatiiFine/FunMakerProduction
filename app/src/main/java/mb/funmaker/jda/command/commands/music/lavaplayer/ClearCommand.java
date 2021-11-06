@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-public class StopCommand implements ICommand {
+public class ClearCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
         final TextChannel channel = ctx.getChannel();
@@ -31,20 +31,18 @@ public class StopCommand implements ICommand {
         }
 
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());
-        musicManager.scheduler.player.stopTrack();
         musicManager.scheduler.queue.clear();
 
-        channel.sendMessage("Muzyka zastopowana").queue();
-
+        channel.sendMessage("Muzyka wyczyszczona").queue();
     }
 
     @Override
     public String getName() {
-        return "stop";
+        return "clear";
     }
 
     @Override
     public String getHelp() {
-        return "Zatrzymuje muzykę";
+        return "Czyści kolejkę";
     }
 }

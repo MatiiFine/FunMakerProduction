@@ -1,1 +1,0 @@
-java -jar ${app/src/main/java/mb/funmaker/jda/Bot.java}
